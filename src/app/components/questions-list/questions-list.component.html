@@ -1,0 +1,71 @@
+<nz-content margin-top>
+  <button *ngIf="!preview" nz-button nzType="dashed" nzBlock (click)="addQuestion()">
+    <i nz-icon [nzType]="'plus-circle'"></i>
+    {{'ADD_QUESTION' | translate}}
+  </button>
+  <ng-container *ngIf="qblock && preview">
+    <h4><b>{{qblock.name}}</b></h4>
+  </ng-container>
+  <nz-table #table
+            [nzData]="questionsList"
+            [(nzPageIndex)]="page"
+            [(nzPageSize)]="perPage"
+            (nzPageIndexChange)="pageChange($event)"
+            (nzPageSizeChange)="pageSizeChange($event)"
+            [nzLoading]="loading"
+            [nzTotal]="totalItems"
+            [nzFrontPagination]="false"
+            nzSize="small"
+            nzShowSizeChanger
+            [nzShowPagination]="!preview"
+            [nzShowQuickJumper]="false"
+            >
+    <thead>
+      <tr>
+        <th nzWidth="1%">{{"ORDER" | translate}}</th>
+        <th nzWidth="50%">{{"DESCRIPTION" | translate}}</th>
+        <th nzWidth="20%">{{"REFERENCE" | translate}}</th>
+        <th>{{"AREA" | translate}}</th>
+        <th>{{"QUESTION_TYPE" | translate}}</th>
+        <th nzWidth="190px" nzAlign="right"></th>
+      </tr>
+    </thead>
+<!-- TODO: Incluir simbolo + para desplegar -->
+    <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+      <ng-template ngFor let-item [ngForOf]="questionsList">
+        <tr cdkDrag>
+          <td nzAlign="right">{{item.order || "-"}}</td>
+
+          <td>{{item.schema.description}}</td>
+
+          <td>{{item.schema.reference}}</td>
+
+          <td>{{item.area?.name}}</td>
+
+          <td>{{getQuestionTypeLabel(item.schema.type) | translate}}</td>
+
+          <td text-right style="min-width: 180px">
+            <nz-tag
+              [nzColor]="item.schena?.options?.length === 0 ? 'red' : 'geekblue'"
+              (click)="editCache[preview ? item.order : item.id].expand = !editCache[preview ? item.order : item.id].expand">
+              <i nz-icon [nzType]="editCache[preview ? item.order : item.id]?.expand ? 'caret-down' : 'caret-right'"></i>
+              {{item.schema?.options?.length}} {{(item.schema?.options?.length === 1 ? 'OPTION' : 'OPTIONS') | translate}}
+            </nz-tag>
+            <ng-container *ngIf="item.uri">
+              <app-action-buttons
+                (startEdit)="onEditQuestion(item)"
+                (delete)="deleteQuestion(item)">
+              </app-action-buttons>
+            </ng-container>
+          </td>
+        </tr>
+
+        <tr [nzExpand]="editCache[preview ? item.order : item.id]?.expand">
+          <app-options-list
+            [question]="item">
+          </app-options-list>
+        </tr>
+      </ng-template>
+    </tbody>
+  </nz-table>
+</nz-content>

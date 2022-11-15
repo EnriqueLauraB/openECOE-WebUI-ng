@@ -1,0 +1,42 @@
+<nz-content>
+  <div nz-row nzType="flex" nzJustify="center" nzAlign="middle" style="margin-top: 50px">
+    <div nz-col nzSpan="24" >
+      <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()" style="margin: 0 auto">
+        <nz-form-item>
+          <nz-alert nzShowIcon *ngIf="error_login" nzType="error" nzMessage="Login incorrecto"></nz-alert>
+        </nz-form-item>
+        
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="'INPUT_EMAIL' | translate">
+            <nz-input-group [nzPrefix]="prefixUser">
+              <input type="text" nz-input [formControlName]="'email'" [placeholder]="'EMAIL' | translate">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="'INPUT_PASSWORD' | translate">
+            <nz-input-group [nzPrefix]="prefixLock">
+              <input type="password" nz-input [formControlName]="'password'" [placeholder]="'PASSWORD' | translate">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <!--<label nz-checkbox formControlName="remember">-->
+            <!--<span>Remember me</span>-->
+            <!--</label>-->
+            <!--<a class="login-form-forgot" class="login-form-forgot">Forgot password</a>-->
+            <button nz-button class="login-form-button" [nzType]="'primary'">{{"LOGIN" | translate}}</button>
+            <!--Or-->
+            <!--<a href="">register now!</a>-->
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <ng-template #prefixUser><i nz-icon nzType="user"></i></ng-template>
+      <ng-template #prefixLock><i nz-icon nzType="lock"></i></ng-template>
+
+    </div>
+  </div>
+
+</nz-content>
+

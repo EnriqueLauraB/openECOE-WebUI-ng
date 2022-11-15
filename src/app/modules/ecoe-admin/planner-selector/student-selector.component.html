@@ -1,0 +1,59 @@
+<div nz-row>
+  <div nz-col nzSpan="16">
+    <nz-select
+      #select
+      style="width: 100%;"
+      nzMode="multiple"
+      [nzDisabled]="this.planner?.students?.length >= maxStudents"
+      [(ngModel)]="selectedStudents"
+      nzPlaceHolder="Select users"
+      nzAllowClear
+      nzShowSearch
+      [nzServerSearch]="true"
+      (nzOnSearch)="searchStudents($event)"
+      (nzScrollToBottom)="loadMore()"
+      [nzLoading]="loading"
+    >
+      <ng-container *ngFor="let s of searchListStudents">
+        <nz-option
+          [nzDisabled]="selectedStudents.length + this.planner?.students?.length >= maxStudents && !this.selectedStudents.includes(s)"
+          [nzValue]="s" [nzLabel]="s.surnames +', '+ s.name"></nz-option>
+      </ng-container>
+      <nz-option *ngIf="loading" nzDisabled nzCustomContent>
+        <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+      </nz-option>
+    </nz-select>
+  </div>
+  <div nz-col nzSpan="8">
+    <button [disabled]="select.nzDisabled" nz-button nzType="primary"
+            (click)="saveGroup()">{{'SAVE' | translate}}</button>
+  </div>
+
+</div>
+<nz-list cdkDropList (cdkDropListDropped)="moveStudent($event)"
+  nzBordered
+  nzSize="small">
+  <nz-list-header>{{groupName}}</nz-list-header>
+  <nz-list-item *ngFor="let item of planner?.students" cdkDrag>
+    <nz-list-item-meta 
+    [nzTitle]="item.surnames+', '+item.name"
+    [nzDescription]="groupName+item.plannerOrder">
+  </nz-list-item-meta>
+    <ul nz-list-item-actions>
+      <nz-list-item-action><button nz-button nzType="danger" (click)="rmStudent(item)">{{'DELETE' | translate}}</button></nz-list-item-action>
+    </ul>
+    
+  </nz-list-item>
+  <nz-list-footer>{{planner.students?.length}}/{{maxStudents}}</nz-list-footer>
+
+</nz-list>
+
+
+
+
+
+
+
+
+
+

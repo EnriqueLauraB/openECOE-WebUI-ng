@@ -1,0 +1,78 @@
+<div class="chrono-component">
+  <ng-container *ngIf="(tictacFlag && connectedFlag || !withPreview) else BeforeStart">
+
+    <ng-container *ngIf="!aborted else ECOEAborted">
+      <app-chrono-header
+      [showDetails]="showDetails"
+      [idEcoe]="idEcoe"
+      [currentCountDownEvent]="currentCountDownEvent"
+      [minutes]="minutes"
+      [rerunsDescription]="rerunsDescription"
+      [round]="round"
+      [seconds]="seconds"
+      [stageName]="stageName"
+      >
+      </app-chrono-header>
+    </ng-container>
+    <ng-template #ECOEAborted>
+      <h2 *ngIf="!showDetails && round" uppercase>{{round.description}}</h2>
+      <h4 *ngIf="!showDetails && initStage">({{'RERUN'| translate}} {{rerunsDescription}})</h4>
+      <nz-tag class="my-tag aborted">
+        <ng-container *ngIf="stageName">
+          {{stageName | translate}}
+        </ng-container>
+      </nz-tag> <br/>
+    </ng-template>
+
+    <!--CHRONO BODY CONTENT-->
+    <ng-container *ngIf="showDetails else DetailsHidden">
+      <app-progress-bar
+        [aborted]="aborted"
+        [eventsToPlay]="eventsToPlay"
+        [totalDuration]="totalDuration"
+        [totalPercent]="totalPercent">
+      </app-progress-bar>
+    </ng-container>
+
+    <ng-template #DetailsHidden>
+      <div margin-top>
+        <ng-content></ng-content>
+      </div>
+    </ng-template>
+    <!-- END--CHRONO BODY CONTENT-->
+
+    <!--CHRONO FOOOTER-->
+    <div nz-row>
+      <div nz-col nzXs="0" nzSm="24">
+        <nz-tag *ngIf="!station && showDetails && !aborted && stageName"
+                margin-top-18  class="footer-tag">
+          {{('ESTIMATED_TIME_TO_FINISH' | translate) + momentRef().add(remainingTime, "seconds").format("HH:mm")}}
+        </nz-tag>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-template #BeforeStart>
+    <ng-container *ngIf="templateBeforeStart" [ngTemplateOutlet]="templateBeforeStart"></ng-container>
+  </ng-template>
+</div>
+
+<ng-template #soundAlert>
+  <div class="ant-notification-notice-content">
+    <div class="ant-notification-notice-with-icon">
+      <span class="ant-notification-notice-icon">
+        <i nz-icon nzType="sound" [nzTheme]="'twotone'" [nzTwotoneColor]="'red'"></i>
+      </span>
+      <div class="ant-notification-notice-message">{{'SOUND_MUTED' | translate}}</div>
+      <div class="ant-notification-notice-description">
+        {{'SOUND_MUTED_INFO' | translate }}
+      </div>
+      <span class="ant-notification-notice-btn">
+        <button (click)="closeNotifSoundError()" nz-button nzDanger nzType="small">
+          <i nz-icon nzType="sound"></i><span>{{'ACTIVATE_SOUND'| translate}}</span>
+        </button>
+      </span>
+    </div>
+  </div>
+</ng-template>

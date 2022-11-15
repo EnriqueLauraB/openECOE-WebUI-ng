@@ -1,0 +1,38 @@
+<ng-container *ngIf="planner && !loading; else noPlanner">
+  <!-- TODO: Recuperar color según si esta lleno -->
+  <nz-statistic  [nzValue]="planner?.students?.length" [nzSuffix]="sufixPlanner">
+
+  </nz-statistic>
+  <ng-template #sufixPlanner>
+    <span>/ {{stationsNum}}</span>
+    <app-action-buttons class="action-buttons"
+                        [isEditing]="false"
+                        [isNewItem]="false"
+                        (startEdit)="createComponentModal(modalFooterPlanner)"
+                        [showDeleteButton]="false">
+    </app-action-buttons>
+  </ng-template>
+</ng-container>
+
+<ng-template #noPlanner>
+  <button nz-button [nzType]="'dashed'"
+          (click)="createComponentModal(modalFooterPlanner)"
+          [nzBlock]="true"
+          [nzLoading]="loading">
+    <i nz-icon [nzType]="'plus-circle'" [nzTheme]="'twotone'" icon-16></i>
+  </button>
+</ng-template>
+
+<ng-template #modalFooterPlanner>
+  <button *ngIf="planner"
+          nz-button
+          [nzType]="'danger'"
+          nz-popconfirm [nzPopconfirmTitle]="'DELETE_CONFIRMATION' | translate" (nzOnConfirm)="deletePlanner(planner)"
+          style="float: left;">
+    <span>{{"DELETE_PLANNER" | translate}}</span>
+  </button>
+
+  <button nz-button (click)="destroyModal()" class="margin-right">
+    <span>{{"CLOSE" | translate}}</span>
+  </button>
+</ng-template>

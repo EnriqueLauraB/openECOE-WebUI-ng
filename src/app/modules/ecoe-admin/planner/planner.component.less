@@ -1,0 +1,40 @@
+
+[bordered] {
+  border: 2px solid black;
+}
+
+.ant-table {
+  &-tbody > tr {
+    transition: all .3s ease;
+
+    &.ant-table-row-hover,
+    &:hover {
+      & > td {
+        background: transparent;
+      }
+
+      & > td:first-child, td:last-child {
+        background: #fafafa;
+      }
+    }
+
+    & > td {
+      &:hover {
+        background: #bfc9ff;
+      }
+    }
+  }
+}
+
+[white-bg] {
+  background-color: #fafafa;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+
+  .action-buttons {
+    padding-left: 5px;
+  }
+}

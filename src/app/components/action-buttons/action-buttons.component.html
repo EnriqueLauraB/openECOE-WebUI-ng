@@ -1,0 +1,62 @@
+<ng-container *ngIf="!isEditing">
+  <i *ngIf="showNavigateQuestions"
+     (click)="navigateQuestions.emit()"
+     nz-icon
+     nzType="select"
+     [nz-tooltip]
+     [nzTooltipPlacement]="'top'"
+     [nzTooltipTitle]="'GO_TO_QUESTIONS' | translate"
+     tappable>
+  </i>
+
+  <nz-divider *ngIf="showNavigateQuestions" [nzType]="'vertical'"></nz-divider>
+
+  <i *ngIf="showOrderButtons && index != 0"
+     nz-icon nzType="up-circle" [nzTheme]="'twotone'"
+     [nz-tooltip] [nzTooltipTitle]="'MOVE_UP' | translate"
+     (click)="changeOrder.emit('up')"
+     tappable>
+  </i>
+
+  <nz-divider *ngIf="showOrderButtons && index != 0" [nzType]="'vertical'"></nz-divider>
+
+  <i *ngIf="showOrderButtons && index != (itemsLength - 1)"
+     nz-icon nzType="down-circle" [nzTheme]="'twotone'"
+     [nz-tooltip] [nzTooltipTitle]="'MOVE_DOWN' | translate"
+     (click)="changeOrder.emit('down')"
+     tappable>
+  </i>
+
+  <nz-divider *ngIf="showOrderButtons && index != (itemsLength - 1)"
+              [nzType]="'vertical'">
+  </nz-divider>
+
+  <i nz-icon nzType="edit" [nzTheme]="'outline'"
+     [nz-tooltip] [nzTooltipTitle]="'EDIT' | translate"
+     (click)="startEdit.emit()" tappable success-color>
+  </i>
+
+  <nz-divider [nzType]="'vertical'" *ngIf="showDeleteButton"></nz-divider>
+
+  <a *ngIf="showDeleteButton"
+     nz-popconfirm [nzPopconfirmTitle]="'DELETE_CONFIRMATION' | translate"
+     (nzOnConfirm)="delete.emit()">
+    <i nz-icon nzType="delete" [nz-tooltip] [nzTooltipTitle]="'DELETE' | translate" danger-color></i>
+  </a>
+</ng-container>
+
+<ng-container *ngIf="isEditing">
+  <i nz-icon nzType="save"
+     [nz-tooltip] [nzTooltipTitle]="(isNewItem ? 'SAVE' : 'UPDATE') | translate"
+     (click)="save.emit()"
+     success-color tappable>
+  </i>
+
+  <nz-divider [nzType]="'vertical'"></nz-divider>
+
+  <i nz-icon nzType="close-circle"
+     [nz-tooltip] [nzTooltipTitle]="'CANCEL' | translate"
+     (click)="cancelEdit.emit()"
+     danger-color tappable>
+  </i>
+</ng-container>
