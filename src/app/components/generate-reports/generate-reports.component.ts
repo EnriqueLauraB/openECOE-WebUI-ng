@@ -1,3 +1,4 @@
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { NzFormModule } from "ng-zorro-antd";
@@ -85,10 +86,25 @@ export class GenerateReportsComponent implements OnInit {
   }
 
   fillSignList() {
-    var signList: Array<listSign>;
+    var signList: Array<listSign> = []; //revisar tipo / castear a listSign siendo objeto
     for (let i = 0; i < this.listOfControl.length; i++) {
       var sign_Element = document.getElementById(String(i));
-      this.signature_type = document.getElementById("signature_type");
+      //castear a HTMLInputElement para que TS pille el valor
+      SData = {
+        signature_type: (<HTMLInputElement>document.getElementById("st." + i))
+          .value,
+
+        profesor: (<HTMLInputElement>document.getElementById("sp." + i)).value,
+
+        job: (<HTMLInputElement>document.getElementById("ss." + i)).value,
+
+        sign_faculty: (<HTMLInputElement>document.getElementById("sf." + i))
+          .value,
+      };
+      //console.log(this.signature_type);
+      /*this.signature_type = document.querySelectorAll(
+        "form.form_signatures input[class='signature_type']"
+      );*/
       console.log(this.signature_type);
       /*
       SData = {
@@ -101,6 +117,7 @@ export class GenerateReportsComponent implements OnInit {
       };
       */
       signList.push(SData);
+      console.log(signList);
     }
     return signList;
   }

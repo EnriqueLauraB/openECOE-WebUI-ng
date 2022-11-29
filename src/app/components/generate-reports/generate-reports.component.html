@@ -125,7 +125,12 @@
     </div>
     <br />
     <p>Firmantes</p>
-    <form nz-form nzLayout="inline" formGroup="validateForm">
+    <form
+      nz-form
+      nzLayout="inline"
+      formGroup="validateForm"
+      class="form_signatures"
+    >
       <nz-form-item *ngFor="let control of listOfControl; let i = index">
         <nz-form-control [nzXs]="8" [nzSm]="8" [nzOffset]="i === 0" [id]="i">
           <input
@@ -134,35 +139,31 @@
             placeholder="Tipo de firma"
             formControlName="add_signatures"
             id="signature_type"
-            [(ngModel)]="signature_type"
-            [attr.id]="control.st"
+            attr.id="st.{{ i }}"
             [formControlName]="control.controlInstance"
           />
           <input
             class="profesor"
             nz-input
             placeholder="Persona que firma"
-            id="control.sp"
-            [(ngModel)]="signature_person"
-            [attr.id]="control.sp"
+            id=""
+            attr.id="sp.{{ i }}"
             [formControlName]="control.controlInstance"
           />
           <input
             class="job"
             nz-input
             placeholder="Posici&oacute;n/Status firmante"
-            id="control.ss"
-            [(ngModel)]="signer_status"
-            [attr.id]="control.ss"
+            id=""
+            attr.id="ss.{{ i }}"
             [formControlName]="control.controlInstance"
           />
           <input
             class="sign_faculty"
             nz-input
             placeholder="Facultad"
-            id="control.sf"
-            [(ngModel)]="signature_faculty"
-            [attr.id]="control.sf"
+            id=""
+            attr.id="sf.{{ i }}"
             [formControlName]="control.controlInstance"
           />
           <span
