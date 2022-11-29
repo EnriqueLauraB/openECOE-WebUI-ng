@@ -21,6 +21,7 @@ import {BarRatingModule} from 'ngx-bar-rating';
 import { ProgressBarComponent } from './chrono/progress-bar/progress-bar.component';
 import { ChronoHeaderComponent } from './chrono/chrono-header/chrono-header.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { GenerateReportsComponent } from './generate-reports/generate-reports.component';
 
 // TODO: Review to include Login and Home components
 @NgModule({
@@ -36,7 +37,8 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
     OptionsListComponent,
     ChronoComponent,
     ProgressBarComponent,
-    ChronoHeaderComponent
+    ChronoHeaderComponent,
+    GenerateReportsComponent
   ],
   imports: [
     CommonModule,
