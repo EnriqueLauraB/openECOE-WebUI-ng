@@ -83,6 +83,7 @@ export class GenerateReportsComponent implements OnInit {
     //FdataList.push(this.listOfControl);
     console.log(FData);
     console.log(FdataList);
+    //llamada a la api para enviar este objeto (post)
   }
 
   fillSignList() {

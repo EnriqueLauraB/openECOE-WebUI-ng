@@ -34,6 +34,7 @@ export class EcoeInfoComponent implements OnInit {
   ecoeId: number;
   ecoeName: String;
   ecoe: ECOE;
+  areGenerated: boolean = false;
 
   areas: ISummaryItems = { total: 0, show: true, loading: true };
   stations: ISummaryItems = { total: 0, show: false, loading: true };
@@ -73,6 +74,7 @@ export class EcoeInfoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.generatedResults();
     this.ecoe_name_form = this.fb.group({
       ecoe_name_2edit: ["", [Validators.required]],
     });
@@ -253,6 +255,24 @@ export class EcoeInfoComponent implements OnInit {
       .finally(() => {
         this.changing_state = false;
       });
+  }
+  generatedResults() {
+    this.areGenerated;
+    //llamada a la api para ver si existe o no el recurso
+    /*
+    if(recurso.exists){
+      areGenerated = true;
+    }
+    else {
+      areGenerated = false;
+    }
+    
+    */
+    return this.areGenerated;
+  }
+
+  checkCompletion() {
+    //comprobar porcentaje de completacion de
   }
 
   reloadECOE() {

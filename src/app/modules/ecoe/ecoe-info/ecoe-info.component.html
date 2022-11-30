@@ -236,10 +236,8 @@
           nzTitle="{{ 'GENERATE_RESULTS' | translate }}"
           [nzExtra]="linkInformes"
         >
-        </nz-card>
-        <ng-template #linkInformes>
           <button
-            [disabled]="true"
+            [disabled]="!areGenerated"
             nz-button
             nzType="primary"
             [routerLink]="['results']"
@@ -247,6 +245,8 @@
             <i nz-icon nzType="download" nzTheme="outline"></i>
             {{ "DOWNLOAD" | translate }}
           </button>
+        </nz-card>
+        <ng-template #linkInformes>
           <button
             [disabled]="!(rounds.show || shifts.show)"
             nz-button
