@@ -23,7 +23,7 @@ export class GenerateReportsComponent implements OnInit {
     },
   ];
   FData: any;
-  signature_type: any;
+  text: any;
   signature_person: any;
   signer_status: any;
   signature_faculty: any;
@@ -77,7 +77,7 @@ export class GenerateReportsComponent implements OnInit {
       explanation_results: (<HTMLInputElement>(
         document.getElementById("results_explanation")
       )).value,
-      signature_list: this.fillSignList(),
+      signatures: this.fillSignList(),
     };
     const FdataList = this.FData;
     //FdataList.push(this.listOfControl);
@@ -92,33 +92,15 @@ export class GenerateReportsComponent implements OnInit {
       var sign_Element = document.getElementById(String(i));
       //castear a HTMLInputElement para que TS pille el valor
       SData = {
-        signature_type: (<HTMLInputElement>document.getElementById("st." + i))
-          .value,
+        text: (<HTMLInputElement>document.getElementById("st." + i)).value,
 
         profesor: (<HTMLInputElement>document.getElementById("sp." + i)).value,
 
         job: (<HTMLInputElement>document.getElementById("ss." + i)).value,
 
-        sign_faculty: (<HTMLInputElement>document.getElementById("sf." + i))
-          .value,
+        faculty: (<HTMLInputElement>document.getElementById("sf." + i)).value,
       };
-      //console.log(this.signature_type);
-      /*this.signature_type = document.querySelectorAll(
-        "form.form_signatures input[class='signature_type']"
-      );*/
-      console.log(this.signature_type);
-      /*
-      SData = {
-        signature_type: sign_Element.querySelector(".signature_type").nodeValue,
-        profesor: (<HTMLInputElement>document.getElementById("control.sp"))
-          .value,
-        job: (<HTMLInputElement>document.getElementById("control.ss")).value,
-        sign_faculty: (<HTMLInputElement>document.getElementById("control.sf"))
-          .value,
-      };
-      */
       signList.push(SData);
-      console.log(signList);
     }
     return signList;
   }
@@ -129,10 +111,10 @@ interface Dummy {
   data2: string;
 }
 interface listSign {
-  signature_type: string;
+  text: string;
   profesor: string;
   job: string;
-  sign_faculty: string;
+  faculty: string;
 }
 interface formData {
   ecoe: string;
@@ -141,7 +123,7 @@ interface formData {
   date: string;
   explanation_ECOE: string;
   explanation_results: string;
-  signature_list: Array<listSign>;
+  signatures: Array<listSign>;
 }
 
 let FData: formData;
